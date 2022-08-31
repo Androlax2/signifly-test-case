@@ -7,6 +7,7 @@
     @endif
     <div class="card-body">
         <h5 class="card-title">{{ $teamMember->getFullName() }}</h5>
+        <p class="card-text">{{ $teamMember->job_title }}</p>
         <a href="{{ $teamMember->getUrl() }}" class="btn btn-primary">Details about me</a>
         @if (isset($withButtons) && $withButtons)
             <a href="{{ route('administration.team-members.edit', $teamMember->id) }}" class="btn btn-primary btn-sm">Edit</a>

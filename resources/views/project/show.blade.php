@@ -8,7 +8,7 @@
         <div class="cards-wrapper">
             @foreach ($project->teamMembers as $teamMember)
                 @include ('includes/team-member-card', [
-                    'team_member' => $teamMember
+                    'teamMember' => $teamMember
                 ])
             @endforeach
         </div>

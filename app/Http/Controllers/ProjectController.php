@@ -22,7 +22,7 @@ class ProjectController extends Controller
     public function index()
     {
         return view('administration.project.index', [
-            'projects' => Project::all(),
+            'projects' => Project::orderByDesc('created_at')->get(),
         ]);
     }
 
@@ -31,7 +31,9 @@ class ProjectController extends Controller
      */
     public function administrationCreate()
     {
-        return view('administration.project.create');
+        return view('administration.project.create', [
+            'teamMembers' => TeamMember::all(),
+        ]);
     }
 
     /**

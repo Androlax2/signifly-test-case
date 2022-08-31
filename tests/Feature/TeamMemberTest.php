@@ -95,7 +95,7 @@ class TeamMemberTest extends TestCase
             'photo_path'  => "team-members/1/{$photoSignature}.jpg",
         ]);
 
-        $response->assertRedirect($this->getAdministrationTeamMemberListingRoute());
+        $response->assertRedirect($this->getAdministrationHomePath());
         $this->followRedirects($response)->assertSee('The team member has been created.');
     }
 
@@ -132,7 +132,7 @@ class TeamMemberTest extends TestCase
      */
     protected function getAdministrationTeamMemberListingRoute(): string
     {
-        return sprintf('%s/team-members', env('ADMINISTRATION_URL'));
+        return $this->getAdministrationHomePath();
     }
 
     /**
@@ -145,5 +145,15 @@ class TeamMemberTest extends TestCase
     protected function getTeamMemberDetailRoute(TeamMember $teamMember): string
     {
         return "team-members/{$teamMember->first_name}-{$teamMember->last_name}";
+    }
+
+    /**
+     * Get administration home path.
+     *
+     * @return string
+     */
+    protected function getAdministrationHomePath(): string
+    {
+        return route('administration.team-members.index');
     }
 }
