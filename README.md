@@ -26,9 +26,9 @@ docker run --rm \
 ./vendor/bin/sail artisan migrate
 ```
 
-You can go now to [http://localhost](http://localhost) to see the application running.
-
-You have a mail server running also on [http://localhost:8025/](http://localhost:8025/).
+- You can go now to [http://localhost](http://localhost) to see the application running.
+- Administration URL is by default : [http://localhost/administration](http://localhost/administration)
+- You have a mail server running also on [http://localhost:8025/](http://localhost:8025/).
 
 # Development
 
