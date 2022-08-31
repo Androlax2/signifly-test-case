@@ -1,10 +1,9 @@
 <div class="card">
     @if ($teamMember->photo_path)
-        <img
-            src="{{ filter_var($teamMember->photo_path, FILTER_VALIDATE_URL) ? $teamMember->photo_path : asset("storage/{$teamMember->photo_path}") }}"
-            class="card-img-top"
-            alt="{{ $teamMember->getFullName() }}"
-        >
+        @include ('includes/team-member/photo', [
+            'teamMember' => $teamMember,
+            'class' => 'card-img-top',
+        ])
     @endif
     <div class="card-body">
         <h5 class="card-title">{{ $teamMember->getFullName() }}</h5>
