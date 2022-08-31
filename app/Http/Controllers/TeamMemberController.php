@@ -6,6 +6,7 @@ use App\Helpers;
 use App\Http\Requests\TeamMemberRequest;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TeamMemberController extends Controller
 {
@@ -15,7 +16,7 @@ class TeamMemberController extends Controller
     public function administrationIndex()
     {
         return view('administration.team-member.index', [
-            'teamMembers' => TeamMember::all(),
+            'teamMembers' => TeamMember::orderByDesc('id')->get(),
         ]);
     }
 
@@ -25,7 +26,7 @@ class TeamMemberController extends Controller
     public function index()
     {
         return view('team-member.index', [
-            'teamMembers' => TeamMember::all(),
+            'teamMembers' => TeamMember::orderByDesc('id')->get(),
         ]);
     }
 
@@ -40,7 +41,8 @@ class TeamMemberController extends Controller
     /**
      * Create a team member.
      *
-     * @param  TeamMemberRequest  $request
+     * @param TeamMemberRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TeamMemberRequest $request)
@@ -50,10 +52,10 @@ class TeamMemberController extends Controller
 
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
-            $path = $teamMember->getStoragePhotoPath($photo);
+            $filename = "{$teamMember->generateStorageFileName($photo)}.{$photo->getClientOriginalExtension()}";
 
-            if ($request->file('photo')->store($path)) {
-                $teamMember->photo_path = $path;
+            if (Storage::disk('public')->putFileAs($teamMember->getStorageDir(), $photo, $filename)) {
+                $teamMember->photo_path = "{$teamMember->getStorageDir()}/{$filename}";
                 $teamMember->save();
             }
         }
@@ -64,7 +66,8 @@ class TeamMemberController extends Controller
     /**
      * Show a team member.
      *
-     * @param  TeamMember  $teamMember
+     * @param TeamMember $teamMember
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(TeamMember $teamMember)

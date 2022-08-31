@@ -1,8 +1,15 @@
 @extends ('app')
 
 @section('content')
-    {{-- TODO: Server side validation return on the form --}}
-    {{-- TODO: Retrieve value in the input forms if there are an error--}}
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="container">
         <h1>Work with us !</h1>
         <p>Explain us your project :</p>

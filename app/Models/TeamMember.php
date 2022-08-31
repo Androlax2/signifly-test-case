@@ -6,7 +6,6 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\UploadedFile;
 
 class TeamMember extends Model
 {
@@ -90,18 +89,6 @@ class TeamMember extends Model
     }
 
     /**
-     * Get the storage file path for photo.
-     *
-     * @param UploadedFile $photo
-     *
-     * @return string
-     */
-    public function getStoragePhotoPath(UploadedFile $photo): string
-    {
-        return sprintf('%s/%s.%s', $this->getStorageDir(), $this->generateStorageFileName($photo->getPathname()), $photo->getClientOriginalExtension());
-    }
-
-    /**
      * Return all the projects associated with this team member.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -116,7 +103,7 @@ class TeamMember extends Model
      *
      * @return string
      */
-    protected function getStorageDir(): string
+    public function getStorageDir(): string
     {
         return "team-members/{$this->id}";
     }
@@ -128,7 +115,7 @@ class TeamMember extends Model
      *
      * @return string|false
      */
-    protected function generateStorageFileName(string $pathname): string|false
+    public function generateStorageFileName(string $pathname): string|false
     {
         return sha1_file($pathname);
     }

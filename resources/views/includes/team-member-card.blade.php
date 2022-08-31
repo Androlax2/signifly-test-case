@@ -1,5 +1,11 @@
 <div class="card">
-    <img src="{{ asset($teamMember->photo_path) }}" class="card-img-top" alt="{{ $teamMember->getFullName() }}">
+    @if ($teamMember->photo_path)
+        <img
+            src="{{ filter_var($teamMember->photo_path, FILTER_VALIDATE_URL) ? $teamMember->photo_path : asset("storage/{$teamMember->photo_path}") }}"
+            class="card-img-top"
+            alt="{{ $teamMember->getFullName() }}"
+        >
+    @endif
     <div class="card-body">
         <h5 class="card-title">{{ $teamMember->getFullName() }}</h5>
         <a href="{{ $teamMember->getUrl() }}" class="btn btn-primary">Details about me</a>

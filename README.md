@@ -33,6 +33,7 @@ docker run --rm \
 ```shell
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan storage:link
 npm install
 npm run build
 ```

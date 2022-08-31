@@ -70,29 +70,29 @@ class TeamMemberTest extends TestCase
             ->post(
                 $this->getTeamMemberCreationRoute(),
                 [
-                    'first_name' => $teamMember->first_name,
-                    'last_name' => $teamMember->last_name,
-                    'email' => $teamMember->email,
-                    'job_title' => $teamMember->job_title,
-                    'location' => $teamMember->location,
-                    'phone' => $teamMember->phone,
+                    'first_name'  => $teamMember->first_name,
+                    'last_name'   => $teamMember->last_name,
+                    'email'       => $teamMember->email,
+                    'job_title'   => $teamMember->job_title,
+                    'location'    => $teamMember->location,
+                    'phone'       => $teamMember->phone,
                     'description' => $teamMember->description,
-                    'photo' => $photo,
+                    'photo'       => $photo,
                 ]
             );
 
-        Storage::disk()->assertExists("team-members/1/{$photoSignature}.jpg");
+        Storage::disk('public')->assertExists("team-members/1/{$photoSignature}.jpg");
 
         $this->assertDatabaseCount('team_members', 1);
         $this->assertDatabaseHas('team_members', [
-            'first_name' => $teamMember->first_name,
-            'last_name' => $teamMember->last_name,
-            'email' => $teamMember->email,
-            'job_title' => $teamMember->job_title,
-            'location' => $teamMember->location,
-            'phone' => $teamMember->phone,
+            'first_name'  => $teamMember->first_name,
+            'last_name'   => $teamMember->last_name,
+            'email'       => $teamMember->email,
+            'job_title'   => $teamMember->job_title,
+            'location'    => $teamMember->location,
+            'phone'       => $teamMember->phone,
             'description' => $teamMember->description,
-            'photo_path' => "team-members/1/{$photoSignature}.jpg",
+            'photo_path'  => "team-members/1/{$photoSignature}.jpg",
         ]);
 
         $response->assertRedirect($this->getAdministrationTeamMemberListingRoute());
@@ -138,7 +138,8 @@ class TeamMemberTest extends TestCase
     /**
      * Get the team member detail route.
      *
-     * @param  TeamMember  $teamMember
+     * @param TeamMember $teamMember
+     *
      * @return string
      */
     protected function getTeamMemberDetailRoute(TeamMember $teamMember): string
