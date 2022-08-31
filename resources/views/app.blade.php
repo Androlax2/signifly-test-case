@@ -44,9 +44,31 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="{{ route('projects.create') }}" class="nav-link">{{ __('Work with us !') }}</a>
-                    </li>
+                    @if (!isset($isAdministration) || !$isAdministration)
+                        <li class="nav-item">
+                            <a href="{{ route('projects.create') }}" class="nav-link">{{ __('Work with us !') }}</a>
+                        </li>
+                    @endif
+                    @if (isset($isAdministration) && $isAdministration)
+                        <li class="nav-item">
+                            <a
+                                href="{{ route('administration.projects.index') }}"
+                                class="nav-link"
+                            >{{ __('All our projects') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                href="{{ route('administration.team-members.create') }}"
+                                class="nav-link"
+                            >{{ __('Add a new team member') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                href="{{ route('administration.projects.create') }}"
+                                class="nav-link"
+                            >{{ __('Add a new project') }}</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>

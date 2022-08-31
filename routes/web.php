@@ -64,7 +64,7 @@ Route::post(
 // ================================
 
 Route::get(
-    \App\Helpers::getAdministrationUrl('/team-members'),
+    \App\Helpers::getAdministrationUrl('/'),
     [\App\Http\Controllers\TeamMemberController::class, 'administrationIndex']
 )->name('administration.team-members.index');
 

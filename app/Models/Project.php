@@ -16,7 +16,7 @@ class Project extends Model
      */
     public static array $createRules = [
         'description' => ['required', 'string'],
-        'slug' => ['required', 'string', 'max:100'],
+        'slug'        => ['required', 'string', 'max:100'],
     ];
 
     /**
@@ -28,6 +28,16 @@ class Project extends Model
         'slug',
         'description',
     ];
+
+    /**
+     * Get URL for a project.
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return route('projects.show', $this);
+    }
 
     /**
      * Get the route key for the model.

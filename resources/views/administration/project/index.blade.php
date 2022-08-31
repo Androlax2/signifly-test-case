@@ -1,7 +1,15 @@
-@foreach ($projects as $project)
-    {{ $project->description }}
-    <a href="{{ route('administration.projects.edit', $project->id) }}" class="btn btn-primary">Edit</a>
-    <a href="{{ route('administration.projects.delete', $project->id) }}" class="btn btn-danger">Delete</a>
-@endforeach
+@extends ('administration.app')
 
-@include('flash-message')
+@section('content')
+    <div class="container">
+        <h1>All our projects</h1>
+        <div class="cards-wrapper">
+            @foreach ($projects as $project)
+                @include ('includes/project-card', [
+                    'project' => $project,
+                    'withButtons' => true
+                ])
+            @endforeach
+        </div>
+    </div>
+@endsection
