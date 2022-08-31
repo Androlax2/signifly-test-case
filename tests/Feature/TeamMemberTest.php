@@ -16,6 +16,37 @@ class TeamMemberTest extends TestCase
         $response->assertSuccessful();
     }
 
+    public function test_team_members_listing_is_working()
+    {
+        $teamMembers = TeamMember::factory()->create(10);
+
+        $response = $this->get($this->getTeamMemberListingRoute());
+
+        $response->assertSuccessful();
+        $teamMembers->map(function ($teamMember) use ($response) {
+            $response->assertSee($teamMember->first_name);
+            $response->assertSee($teamMember->last_name);
+            $response->assertSee($teamMember->job_title);
+            // TODO: Checker qu'on voit la photo
+        });
+    }
+
+    public function test_team_member_detail_page_is_working()
+    {
+        $teamMember = TeamMember::factory()->create();
+
+        $response = $this->get($this->getTeamMemberDetailRoute($teamMember));
+        $response->assertSuccessful();
+        $response->assertSee($teamMember->first_name);
+        $response->assertSee($teamMember->last_name);
+        $response->assertSee($teamMember->job_title);
+        $response->assertSee($teamMember->location);
+        $response->assertSee($teamMember->phone);
+        $response->assertSee($teamMember->email);
+        $response->assertSee($teamMember->description);
+        // TODO: Checker qu'on voit la photo
+    }
+
     public function test_team_member_can_be_created_through_administration()
     {
         $teamMember = TeamMember::factory()->make();
@@ -35,7 +66,29 @@ class TeamMemberTest extends TestCase
      */
     protected function getTeamMemberCreationRoute(): string
     {
-        return sprintf("%s/team-member/create", env('ADMINISTRATION_URL'));
+        return sprintf("%s/team/create", env('ADMINISTRATION_URL'));
+    }
+
+    /**
+     * Get the team member listing route.
+     *
+     * @return string
+     */
+    protected function getTeamMemberListingRoute(): string
+    {
+        return sprintf("%s/team", env('ADMINISTRATION_URL'));
+    }
+
+    /**
+     * Get the team member detail route.
+     *
+     * @param TeamMember $teamMember
+     *
+     * @return string
+     */
+    protected function getTeamMemberDetailRoute(TeamMember $teamMember): string
+    {
+        return "team/{$teamMember->first_name}-{$teamMember->last_name}";
     }
 
 }
