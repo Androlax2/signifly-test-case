@@ -1,8 +1,17 @@
-# Installation
-
-## Requirements
+# Requirements
 
 - [Docker](https://www.docker.com/)
+- [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+### Vite
+
+Install `vite` globally (if it's not already installed) :
+
+```shell
+npm i -g vite
+```
+
+# Installation
 
 ```shell
 cp .env.example .env
@@ -24,6 +33,8 @@ docker run --rm \
 ```shell
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan key:generate
+npm install
+npm run build
 ```
 
 ```shell

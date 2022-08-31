@@ -124,3 +124,7 @@ Route::delete(
     \App\Helpers::getAdministrationUrl('/project/{id}'),
     [\App\Http\Controllers\ProjectController::class, 'destroy']
 )->name('administration.projects.delete');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
