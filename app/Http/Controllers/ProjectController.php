@@ -7,6 +7,7 @@ use App\Http\Requests\ProjectRequest;
 use App\Mail\NewProjectRequest;
 use App\Models\Project;
 use App\Models\TeamMember;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Str;
@@ -36,7 +37,8 @@ class ProjectController extends Controller
     /**
      * Create a project in administration.
      *
-     * @param  ProjectRequest  $request
+     * @param ProjectRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function administrationStore(ProjectRequest $request)
@@ -49,7 +51,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return to_route('administration.projects.index')->with(Helpers::getFlashSuccessMessage('Project created'), );
+        return to_route('administration.projects.index')->with(Helpers::getFlashSuccessMessage('Project created'),);
     }
 
     /**
@@ -57,13 +59,16 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        return view('project.create', [
+            'teamMembers' => TeamMember::all(),
+        ]);
     }
 
     /**
      * Create a project for guests.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -73,25 +78,26 @@ class ProjectController extends Controller
         ]);
 
         $project = Project::make([
-            'slug' => Str::uuid(),
+            'slug'        => Str::uuid(),
             'description' => $request->get('description'),
         ]);
         $teamMembers = TeamMember::find($request->get('team_member_ids'));
 
-        Mail::to(config('signifly.marketing_team_email'))
-            ->send(new NewProjectRequest($request->get('email'), $project, $teamMembers));
-
-        if (! Mail::failures()) {
-            return to_route('home')->with(Helpers::getFlashSuccessMessage('Your request has been sent to us. We will come back soon.'));
-        } else {
-            return to_route('home')->with(Helpers::getFlashErrorMessage('Something went wrong. Please try again.'));
+        try {
+            Mail::to(config('signifly.marketing_team_email'))
+                ->send(new NewProjectRequest($request->get('email'), $project, $teamMembers));
+        } catch (Exception $e) {
+            return to_route('projects.create')->with(Helpers::getFlashErrorMessage('Something went wrong. Please try again.'));
         }
+
+        return to_route('home')->with(Helpers::getFlashSuccessMessage('Your request has been sent to us. We will come back soon.'));
     }
 
     /**
      * Show the project.
      *
-     * @param  Project  $project
+     * @param Project $project
+     *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Project $project)

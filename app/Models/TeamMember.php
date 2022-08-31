@@ -18,14 +18,14 @@ class TeamMember extends Model
      * @var string[][]
      */
     public static array $createRules = [
-        'first_name' => ['required', 'string', 'max:50'],
-        'last_name' => ['required', 'string', 'max:50'],
-        'email' => ['required', 'string', 'max:100'],
-        'job_title' => ['required', 'string', 'max:100'],
-        'location' => ['required', 'string', 'max:100'],
-        'phone' => ['required', 'string', 'max:20'],
+        'first_name'  => ['required', 'string', 'max:50'],
+        'last_name'   => ['required', 'string', 'max:50'],
+        'email'       => ['required', 'string', 'max:100'],
+        'job_title'   => ['required', 'string', 'max:100'],
+        'location'    => ['required', 'string', 'max:100'],
+        'phone'       => ['required', 'string', 'max:20'],
         'description' => ['nullable', 'string'],
-        'photo_path' => ['nullable', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
+        'photo_path'  => ['nullable', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
     ];
 
     /**
@@ -44,6 +44,16 @@ class TeamMember extends Model
         'description',
         'photo_path',
     ];
+
+    /**
+     * Get the url to the team member.
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return route('team-members.show', $this);
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -76,13 +86,14 @@ class TeamMember extends Model
      */
     public function getFullName(): string
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
      * Get the storage file path for photo.
      *
-     * @param  UploadedFile  $photo
+     * @param UploadedFile $photo
+     *
      * @return string
      */
     public function getStoragePhotoPath(UploadedFile $photo): string
@@ -113,7 +124,8 @@ class TeamMember extends Model
     /**
      * Generate a filename for the local storage.
      *
-     * @param  string  $pathname Path to the file.
+     * @param string $pathname Path to the file.
+     *
      * @return string|false
      */
     protected function generateStorageFileName(string $pathname): string|false

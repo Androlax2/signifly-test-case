@@ -38,7 +38,7 @@ npm run build
 ```
 
 ```shell
-./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan migrate --seed
 ```
 
 If you have an error **SQLSTATE[HY000] [2002] Connection refused**, re run it (it is because the mysql container is not already up)

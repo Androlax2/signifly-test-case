@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', fn () => view('welcome'))->name('home');
+Route::get('/', fn () => view('home', ['teamMembers' => \App\Models\TeamMember::all()]))->name('home');
 
 //-----------------------------------------------------
 // Team Member Routes
@@ -124,7 +124,3 @@ Route::delete(
     \App\Helpers::getAdministrationUrl('/project/{id}'),
     [\App\Http\Controllers\ProjectController::class, 'destroy']
 )->name('administration.projects.delete');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,11 +1,16 @@
 @if (Session::has('flash_notification'))
     @if (Session::get('flash_notification')['level'] == 'success')
-        <div class="alert alert-success">
-            {{ Session::get('flash_notification')['message'] }}
-        </div>
+        <flash-message
+            time="5000"
+            message="{{ Session::get('flash_notification')['message'] }}"
+            progressbar="true"
+        ></flash-message>
     @elseif (Session::get('flash_notification')['level'] == 'error')
-        <div class="alert alert-danger">
-            {{ Session::get('flash_notification')['message'] }}
-        </div>
+        <flash-message
+            type="ERROR"
+            time="5000"
+            message="{{ Session::get('flash_notification')['message'] }}"
+            progressbar="true"
+        ></flash-message>
     @endif
 @endif
