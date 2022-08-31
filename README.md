@@ -8,6 +8,8 @@
 cp .env.example .env
 ```
 
+If you are on Windows, copy `.env.example` to `.env`
+
 ```shell
 docker run --rm \
     -u "$(id -u):$(id -g)" \
