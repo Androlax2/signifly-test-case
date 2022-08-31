@@ -12,8 +12,7 @@ class NewProjectRequest extends Mailable
         protected string $email,
         protected Project $project,
         protected Collection|array $teamMembers
-    )
-    {
+    ) {
     }
 
     public function build()
@@ -22,8 +21,8 @@ class NewProjectRequest extends Mailable
             ->subject('New project request')
             ->replyTo($this->email)
             ->markdown('emails.new-project-request', [
-                'email'       => $this->email,
-                'project'     => $this->project,
+                'email' => $this->email,
+                'project' => $this->project,
                 'teamMembers' => $this->teamMembers,
             ]);
     }

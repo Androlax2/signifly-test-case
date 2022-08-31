@@ -16,7 +16,7 @@ class Project extends Model
      */
     public static array $createRules = [
         'description' => ['required', 'string'],
-        'slug'        => ['required', 'string', 'max:100'],
+        'slug' => ['required', 'string', 'max:100'],
     ];
 
     /**

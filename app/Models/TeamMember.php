@@ -17,14 +17,14 @@ class TeamMember extends Model
      * @var string[][]
      */
     public static array $createRules = [
-        'first_name'  => ['required', 'string', 'max:50'],
-        'last_name'   => ['required', 'string', 'max:50'],
-        'email'       => ['required', 'string', 'max:100'],
-        'job_title'   => ['required', 'string', 'max:100'],
-        'location'    => ['required', 'string', 'max:100'],
-        'phone'       => ['required', 'string', 'max:20'],
+        'first_name' => ['required', 'string', 'max:50'],
+        'last_name' => ['required', 'string', 'max:50'],
+        'email' => ['required', 'string', 'max:100'],
+        'job_title' => ['required', 'string', 'max:100'],
+        'location' => ['required', 'string', 'max:100'],
+        'phone' => ['required', 'string', 'max:20'],
         'description' => ['nullable', 'string'],
-        'photo_path'  => ['nullable', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
+        'photo_path' => ['nullable', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
     ];
 
     /**
@@ -85,7 +85,7 @@ class TeamMember extends Model
      */
     public function getFullName(): string
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
     /**
@@ -111,8 +111,7 @@ class TeamMember extends Model
     /**
      * Generate a filename for the local storage.
      *
-     * @param string $pathname Path to the file.
-     *
+     * @param  string  $pathname Path to the file.
      * @return string|false
      */
     public function generateStorageFileName(string $pathname): string|false

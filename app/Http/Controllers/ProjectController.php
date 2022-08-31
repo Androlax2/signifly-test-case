@@ -39,8 +39,7 @@ class ProjectController extends Controller
     /**
      * Create a project in administration.
      *
-     * @param ProjectRequest $request
-     *
+     * @param  ProjectRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function administrationStore(ProjectRequest $request)
@@ -53,7 +52,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return to_route('administration.projects.index')->with(Helpers::getFlashSuccessMessage('Project created'),);
+        return to_route('administration.projects.index')->with(Helpers::getFlashSuccessMessage('Project created'), );
     }
 
     /**
@@ -69,8 +68,7 @@ class ProjectController extends Controller
     /**
      * Create a project for guests.
      *
-     * @param Request $request
-     *
+     * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -80,7 +78,7 @@ class ProjectController extends Controller
         ]);
 
         $project = Project::make([
-            'slug'        => Str::uuid(),
+            'slug' => Str::uuid(),
             'description' => $request->get('description'),
         ]);
         $teamMembers = TeamMember::find($request->get('team_member_ids'));
@@ -98,8 +96,7 @@ class ProjectController extends Controller
     /**
      * Show the project.
      *
-     * @param Project $project
-     *
+     * @param  Project  $project
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Project $project)

@@ -41,8 +41,7 @@ class TeamMemberController extends Controller
     /**
      * Create a team member.
      *
-     * @param TeamMemberRequest $request
-     *
+     * @param  TeamMemberRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TeamMemberRequest $request)
@@ -66,8 +65,7 @@ class TeamMemberController extends Controller
     /**
      * Show a team member.
      *
-     * @param TeamMember $teamMember
-     *
+     * @param  TeamMember  $teamMember
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(TeamMember $teamMember)
