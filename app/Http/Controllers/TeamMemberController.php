@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers;
 use App\Http\Requests\TeamMemberRequest;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class TeamMemberController extends Controller
             }
         }
 
-        return to_route('administration.team-members.index');
+        return to_route('administration.team-members.index')->with(Helpers::getFlashSuccessMessage('The team member has been created.'));
     }
 
     /**

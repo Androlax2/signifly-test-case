@@ -91,6 +91,16 @@ class TeamMember extends Model
     }
 
     /**
+     * Return all the projects associated with this team member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    /**
      * Get the storage dir for team members.
      *
      * @return string

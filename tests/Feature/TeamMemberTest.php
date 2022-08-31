@@ -96,6 +96,7 @@ class TeamMemberTest extends TestCase
         ]);
 
         $response->assertRedirect($this->getAdministrationTeamMemberListingRoute());
+        $this->followRedirects($response)->assertSee('The team member has been created.');
     }
 
     public function test_team_member_detail_page_is_working()

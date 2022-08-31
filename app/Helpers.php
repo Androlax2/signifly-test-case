@@ -20,4 +20,36 @@ final class Helpers
 
         return env('ADMINISTRATION_URL').$url;
     }
+
+    /**
+     * Get flash notification for success.
+     *
+     * @param  string  $message
+     * @return array
+     */
+    public static function getFlashSuccessMessage(string $message): array
+    {
+        return [
+            'flash_notification' => [
+                'message' => $message,
+                'level' => 'success',
+            ],
+        ];
+    }
+
+    /**
+     * Get flash notification for error.
+     *
+     * @param  string  $message
+     * @return array
+     */
+    public static function getFlashErrorMessage(string $message): array
+    {
+        return [
+            'flash_notification' => [
+                'message' => $message,
+                'level' => 'error',
+            ],
+        ];
+    }
 }
