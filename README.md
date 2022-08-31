@@ -23,8 +23,13 @@ docker run --rm \
 
 ```shell
 ./vendor/bin/sail up -d
+```
+
+```shell
 ./vendor/bin/sail artisan migrate
 ```
+
+If you have an error **SQLSTATE[HY000] [2002] Connection refused**, re run it (it is because the mysql container is not already up)
 
 - You can go now to [http://localhost](http://localhost) to see the application running.
 - Administration URL is by default : [http://localhost/administration](http://localhost/administration)
