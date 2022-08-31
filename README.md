@@ -5,6 +5,10 @@
 - [Docker](https://www.docker.com/)
 
 ```shell
+cp .env.example .env
+```
+
+```shell
 docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
