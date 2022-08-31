@@ -32,7 +32,7 @@ You have a mail server running also on [http://localhost:8025/](http://localhost
 ./vendor/bin/sail pint
 ````
 
-## Run linter :
+## Run tests :
 
 ````shell
 ./vendor/bin/sail test
